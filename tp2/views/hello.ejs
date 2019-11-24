@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <% include partials/head %>
+  </head>
+  <body class="container">
+    <div class="col-md-6 col-md-offset-3">
+      <h1 style="text-align: center;">Hello <%= name %></h1>
+      <h2 style="text-align: center;">My name is Jerome DELTOUR and I'm a student at the ECE Paris</h2>
+      <button style="text-align: center;" class="btn btn-success" id="show-metrics">
+        Bring the metrics
+      </button>
+      <div id="metrics"></div>
+    </div>
+    <script>
+      $('#show-metrics').click((e) => {
+      e.preventDefault();
+      $.getJSON("/metrics.json", {}, (data) => {
+        const content = data.map(d => {
+          return 'timestamp: '+d.timestamp+', value: '+d.value+'';
+        })
+        $('#metrics').append(content.join("\n"));
+      });
+    })
+    </script>
+  </body>
+</html>
